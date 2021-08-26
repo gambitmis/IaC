@@ -1,0 +1,15 @@
+---
+  - name: test
+    hosts: localhost
+    tasks:
+      - debug:
+          msg: "System {{ inventory_hostname }} has IP Addr {{ ansible_all_ipv4_addresses }} and gateway {{ ansible_default_ipv4.gateway }} "
+        when: 
+          - ansible_default_ipv4.gateway is defined
+          - ansible_all_ipv4_addresses is defined
+      - debug:
+          msg: "{{ ansible_distribution }} {{ ansible_distribution_version }}"
+      - debug:
+          msg: "{{ ansible_date_time.date }} {{ ansible_date_time.time }} {{ ansible_date_time.tz }}"
+
+
