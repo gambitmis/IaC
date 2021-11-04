@@ -1,0 +1,12 @@
+---
+  - name: Upgrade all packages to ths lastest version
+    hosts: prototype
+    tasks:
+      - name: apt update
+        apt:
+          upgrade: dist
+      - name: apt upgrade
+        apt:
+          name: "*"
+          state: latest
+  

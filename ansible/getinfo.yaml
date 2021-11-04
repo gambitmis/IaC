@@ -1,6 +1,6 @@
 ---
   - name: test
-    hosts: localhost
+    hosts: prototype
     tasks:
       - debug:
           msg: "System {{ inventory_hostname }} has IP Addr {{ ansible_all_ipv4_addresses }} and gateway {{ ansible_default_ipv4.gateway }} "
