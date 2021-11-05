@@ -1,15 +1,19 @@
 ---
  - name: Prerequisite
-   hosts: k8s-cluster
+   hosts: test
    tasks:
-
+   - name: create new file
+     file:
+       path: /etc/sysctl.d/k8s.conf
+       state: touch
+       mode: u+rw,g-wx,o-rwx
    - name: sysctl disable ipv6
      sysctl:
        name: "{{ item }}"
 #       state: present
        value: 1
        sysctl_file: /etc/sysctl.d/k8s.conf
-       reload: yes
+       #reload: yes
      loop:
         - net.bridge.bridge-nf-call-ip6tables
         - net.bridge.bridge-nf-call-iptables

@@ -1,0 +1,20 @@
+version: '3.9'
+services:
+  haproxy:
+    image: haproxy:2.4.4-alpine
+    ports:
+      - "6443:6443"
+      - "8404:8404"
+    volumes:
+      - "./conf/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg"
+    environment:
+       CTRL1_HOSTNAME: "CTRL-54"
+       CTRL2_HOSTNAME: "CTRL-55"
+       CTRL3_HOSTNAME: "CTRL-56"
+       CTRL1_IP: 192.168.62.54
+       CTRL2_IP: 192.168.62.55
+       CTRL3_IP: 192.168.62.56
+networks:
+  default:
+    external: true
+    name: haproxy
