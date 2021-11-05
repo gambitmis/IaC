@@ -8,12 +8,12 @@ services:
     volumes:
       - "./conf/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg"
     environment:
-       CTRL1_HOSTNAME: "CTRL-54"
-       CTRL2_HOSTNAME: "CTRL-55"
-       CTRL3_HOSTNAME: "CTRL-56"
-       CTRL1_IP: 192.168.62.54
-       CTRL2_IP: 192.168.62.55
-       CTRL3_IP: 192.168.62.56
+       CTRL1_HOSTNAME: "CTRL-64"
+       CTRL2_HOSTNAME: "CTRL-65"
+       CTRL3_HOSTNAME: "CTRL-66"
+       CTRL1_IP: 192.168.62.64
+       CTRL2_IP: 192.168.62.65
+       CTRL3_IP: 192.168.62.66
 networks:
   default:
     external: true
