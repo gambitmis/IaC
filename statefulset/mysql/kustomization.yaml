@@ -1,0 +1,19 @@
+secretGenerator:
+- name: mysql-root-passwd
+  literals:
+  - root-passwd=P@ssw0rd
+- name: mysql-user-passwd
+  literals:
+  - user-passwd=P@ssw0rd
+configMapGenerator:
+- name: mysql-db-name
+  literals:
+  - db-name=tuxtum
+- name: mysql-user
+  literals:
+  - user=dbadmin
+resources:
+  - statefulset-mysql.yaml
+  - service-mysql.yaml
+  - pod-phpmyadmin.yaml
+  - service-phpmyadmin.yaml
