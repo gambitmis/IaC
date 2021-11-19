@@ -12,6 +12,9 @@ configMapGenerator:
 - name: mysql-user
   literals:
   - user=dbadmin
+- name: initdb
+  files:
+  - demo.sql
 resources:
   - statefulset-mysql.yaml
   - service-mysql.yaml
