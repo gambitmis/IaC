@@ -15,5 +15,6 @@ configMapGenerator:
 resources:
   - statefulset-mysql.yaml
   - service-mysql.yaml
-  - pod-phpmyadmin.yaml
+  - deployment-phpmyadmin.yaml
   - service-phpmyadmin.yaml
+  - pod-testdb.yaml

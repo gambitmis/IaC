@@ -3,7 +3,7 @@ kind: Service
 metadata:
   creationTimestamp: null
   labels:
-    run: phpmyadmin
+    app: phpmyadmin
   name: phpmyadmin
 spec:
   ports:
@@ -11,7 +11,9 @@ spec:
     protocol: TCP
     targetPort: 80
   selector:
-    run: phpmyadmin
+    app: phpmyadmin
+    app-tier: frontend
+    zone: public
   type: NodePort
 status:
   loadBalancer: {}

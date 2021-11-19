@@ -3,18 +3,16 @@ kind: Pod
 metadata:
   creationTimestamp: null
   labels:
-    run: phpmyadmin
-  name: phpmyadmin
+    run: test-mysql
+  name: test-mysql
 spec:
   containers:
-  - image: phpmyadmin
-    name: phpmyadmin
-    ports:
-    - containerPort: 80
+  - args:
+    - sleep
+    - "5000"
+    image: ubuntu
+    name: test-mysql
     resources: {}
-    env:
-    - name: PMA_HOST
-      value: mysql-h
   dnsPolicy: ClusterFirst
   restartPolicy: Always
 status: {}
