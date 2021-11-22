@@ -28,6 +28,6 @@ spec:
         - containerPort: 80
         env:
         - name: PMA_HOST
-          value: mysql-h
+          value: db
         resources: {}
 status: {}

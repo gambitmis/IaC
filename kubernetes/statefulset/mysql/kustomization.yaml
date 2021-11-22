@@ -4,20 +4,22 @@ secretGenerator:
   - root-passwd=P@ssw0rd
 - name: mysql-user-passwd
   literals:
-  - user-passwd=P@ssw0rd
+  - user-passwd=password
 configMapGenerator:
 - name: mysql-db-name
   literals:
-  - db-name=tuxtum
+  - db-name=login
 - name: mysql-user
   literals:
   - user=dbadmin
 - name: initdb
   files:
-  - demo.sql
+  - user.sql
 resources:
   - statefulset-mysql.yaml
   - service-mysql.yaml
   - deployment-phpmyadmin.yaml
   - service-phpmyadmin.yaml
-  - pod-testdb.yaml
+  - deployment-login.yaml
+  - service-login.yaml
+ # - pod-testdb.yaml

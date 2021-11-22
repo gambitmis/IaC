@@ -25,6 +25,8 @@ spec:
         volumeMounts:
         - name: db
           mountPath: /var/lib/mysql
+        - name: config-initdb
+          mountPath: /docker-entrypoint-initdb.d
         env:
         - name: MYSQL_ROOT_PASSWORD
           valueFrom:
@@ -46,6 +48,10 @@ spec:
             secretKeyRef:
               name: mysql-user-passwd
               key: user-passwd
+      volumes:
+        - name: config-initdb
+          configMap:
+            name: initdb
   volumeClaimTemplates:
   - metadata:
       name: db

@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: login
+  name: login
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: login
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: login
+    spec:
+      containers:
+      - image: gambitmis/tuxtum-nodejs
+        name: txutum-nodejs
+        ports:
+        - containerPort: 3100
+        resources: {}
+status: {}
