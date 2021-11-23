@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: react
+  name: react
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: react
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: react
+    spec:
+      containers:
+      - image: gambitmis/mern-demo:frontend
+        imagePullPolicy: Always
+        name: mern-demo
+        ports:
+        - containerPort: 80
+        resources: {}
+status: {}
