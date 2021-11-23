@@ -5,4 +5,4 @@ resources:
   - redis-follower-service.yaml
   - frontend-deployment.yaml
   - frontend-service.yaml
- # - pod-testdb.yaml
+  - service-nodeport.yaml
