@@ -22,4 +22,5 @@ resources:
   - service-phpmyadmin.yaml
   - deployment-login.yaml
   - service-login.yaml
+  - ingress.yaml
  # - pod-testdb.yaml

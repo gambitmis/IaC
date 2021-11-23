@@ -1,0 +1,8 @@
+resources:
+  - redis-leader.yaml
+  - redis-leader-service.yaml
+  - redis-follower.yaml
+  - redis-follower-service.yaml
+  - frontend-deployment.yaml
+  - frontend-service.yaml
+ # - pod-testdb.yaml
