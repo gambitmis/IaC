@@ -1,0 +1,76 @@
+---
+  - name: Install Docker Engine https://docs.docker.com/engine/install/
+    hosts: docker
+    tasks:
+
+    - debug:
+        msg: "Working on Hostname:{ {{ inventory_hostname }} } Distribution:{ {{ ansible_distribution }} {{ ansible_distribution_version }} } Operation Time:{ {{ ansible_date_time.date }} {{ ansible_date_time.time }} {{ ansible_date_time.tz }} }"
+    - debug:
+        msg: "Hostname:{ {{ inventory_hostname }} } IPAddr:{ {{ ansible_all_ipv4_addresses }} } Gateway:{ {{ ansible_default_ipv4.gateway }} }"
+      when:
+        - ansible_default_ipv4.gateway is defined
+        - ansible_all_ipv4_addresses is defined
+
+    - name: Add docker package
+      apt:
+        name: "{{ package }}"
+        state: present
+      vars:
+        package:
+        - apt-transport-https
+        - ca-certificates
+        - curl
+        - gnupg
+      when: ( ansible_distribution == "Ubuntu" and ansible_distribution_version == "20.04" ) or
+             ( ansible_distribution == "Ubuntu" and ansible_distribution_version == "18.04")
+
+    - name: Add Docker's Official GPG Key;
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+      when: ( ansible_distribution == "Ubuntu" and ansible_distribution_version == "20.04" ) or
+             ( ansible_distribution == "Ubuntu" and ansible_distribution_version == "18.04")
+
+    - name: Add Docker Repository
+      apt_repository:
+        repo: deb https://download.docker.com/linux/ubuntu bionic stable
+        state: present
+      when: ( ansible_distribution == "Ubuntu" and ansible_distribution_version == "20.04" ) or
+             ( ansible_distribution == "Ubuntu" and ansible_distribution_version == "18.04")
+
+    - name: Install Docker engine
+      apt:
+        name: "{{ package }}"
+        state: present
+      vars:
+        package:
+        - docker-ce
+        - docker-ce-cli
+        - containerd.io
+      when: ( ansible_distribution == "Ubuntu" and ansible_distribution_version == "20.04" ) or
+             ( ansible_distribution == "Ubuntu" and ansible_distribution_version == "18.04")
+
+    - name: Docker service enable
+      systemd:
+        state: started
+        name: docker
+        enabled: yes
+      when: ( ansible_distribution == "Ubuntu" and ansible_distribution_version == "20.04" ) or
+             ( ansible_distribution == "Ubuntu" and ansible_distribution_version == "18.04")
+
+    - name: Download docker-compose
+      get_url:
+        url: https://github.com/docker/compose/releases/download/1.29.2/docker-compose-Linux-x86_64
+        dest: /usr/local/bin/docker-compose
+        mode: 0755
+
+    - name: Change file mode on docker-compose to Executeable 
+      file:
+        path: /usr/local/bin/docker-compose
+        mode: 0755
+
+    - name: Soft link on docker-compose
+      file:
+        src: /usr/local/bin/docker-compose
+        dest: /usr/bin/docker-compose
+        state: link
