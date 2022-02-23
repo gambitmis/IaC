@@ -1,0 +1,53 @@
+version: '3.9'
+services:
+  #influxdb:
+    #image: influxdb
+    #container_name: db
+    #restart: unless-stopped
+    #environment:
+      #DOCKER_INFLUXDB_INIT_MODE: setup
+      #DOCKER_INFLUXDB_INIT_USERNAME: ${DOCKER_INFLUXDB_INIT_USERNAME:-admin}
+      #DOCKER_INFLUXDB_INIT_PASSWORD: 1234567890
+      #DOCKER_INFLUXDB_INIT_ORG: dga
+      #DOCKER_INFLUXDB_INIT_BUCKET: k6
+    #volumes:
+      #- influxdb:/var/lib/influxdb
+    #ports:
+      #- 8086:8086
+  influxdb:
+    image: influxdb:1.8
+    environment:
+      - INFLUXDB_DB=k6
+    ports:
+      - 8086:8086
+
+  k6:
+    image: grafana/k6
+
+  grafana:
+    image: grafana/grafana-oss
+    container_name: grafana
+    restart: unless-stopped
+    environment:
+      - GF_INSTALL_PLUGINS=grafana-clock-panel,grafana-simple-json-datasource
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - grafana-conf:/etc/grafana
+      - grafana-log:/var/log/grafana
+    ports:
+      - 3000:3000
+    depends_on:
+      - influxdb
+
+networks:
+  default:
+    external: true
+    name: docker
+volumes:
+  influxdb:
+  grafana-data:
+  grafana-conf:
+  grafana-log:
+
